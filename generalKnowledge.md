@@ -1,5 +1,0 @@
-- Niemals automatische Anpassungen an .env Dateien
-
-- Wir nehme eine Postgres DB
-
-Hello :)
