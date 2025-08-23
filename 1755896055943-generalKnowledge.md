@@ -1,1 +1,1 @@
-<p>- Niemals automatische Anpassungen an .env Dateien</p><p>- Wir nehme eine Postgres DB</p><p>V3</p>
+<p>- Niemals automatische Anpassungen an .env Dateien</p><p>- Wir nehme eine Postgres DB</p><p>V4</p>
