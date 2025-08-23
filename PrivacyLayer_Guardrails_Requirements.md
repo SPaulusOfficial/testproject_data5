@@ -1,6 +1,6 @@
 # PrivacyLayer - Guardrails and Requirements (Business Perspective)
 ## 📋 Table of Contents
-Version 3
+Version 4
 1. Business Concept &amp; Vision
 
 1. Core Requirements
