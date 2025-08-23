@@ -1,5 +1,5 @@
 # PrivacyLayer - Guardrails and Requirements (Business Perspective)
-Verstion 1
+Version 1
 ## 📋 Table of Contents
 1. Business Concept &amp; Vision
 
@@ -39,7 +39,6 @@ We provide a complete solution for automated anonymization of personally identif
 ### 1. **Intelligent Anonymization**
 The system must automatically detect various types of personally identifiable data:
 Supported Data Types- **Names**: Personal and company names
-
 - **Email Addresses**: Automatic detection and replacement
 
 - **Phone Numbers**: German and international formats
@@ -57,7 +56,6 @@ Anonymized: "Hello, I am {{Name_1}}. My email is {{Email_1}}."
 ### 2. **Re-Identification**
 Original data must be safely restorable:
 Approval Process- Each re-identification requires a legitimate reason
-
 - Complete logging of all access
 
 - Time limitation: Automatic deletion after defined time
@@ -65,7 +63,6 @@ Approval Process- Each re-identification requires a legitimate reason
 ### 3. **Multi-Tenant Architecture**
 Each customer has their own isolated environment:
 Data Isolation- No mixing of customer data
-
 - Individual configuration per customer
 
 - Separate audit trails per customer
@@ -73,7 +70,6 @@ Data Isolation- No mixing of customer data
 ### 4. **Configurable Filters**
 Customers can create their own anonymization rules:
 Filter Types- **Regex Patterns**: For complex detection patterns
-
 - **String Matches**: For exact text search
 
 - **String Lists**: For multiple specific terms
@@ -107,19 +103,19 @@ Filter Types- **Regex Patterns**: For complex detection patterns
 
 - Anonymization as standard
 
-2. **Right to be Forgotten**- Customers can request deletion of their data
+1. **Right to be Forgotten**- Customers can request deletion of their data
 
 - Automatic deletion after defined time
 
 - Complete traceability of deletion
 
-3. **Data Portability**- Customers can export their data
+1. **Data Portability**- Customers can export their data
 
 - Anonymized data is safely transferable
 
 - Compliance during system changes
 
-4. **Audit Trail**- Complete logging of all data access
+1. **Audit Trail**- Complete logging of all data access
 
 - WORM-compliant logs (Write Once Read Many)
 
@@ -127,19 +123,16 @@ Filter Types- **Regex Patterns**: For complex detection patterns
 
 ### Extended Compliance (Future)
 **HIPAA Compliance for Health Data**- Automatic detection of medical terms
-
 - Patient data anonymization
 
 - Doctor and staff name recognition
 
 **PCI-DSS for Credit Card Data**- Secure handling of credit card numbers
-
 - Automatic masking
 
 - Compliance reporting
 
 **SOX Compliance for Financial Data**- Financial report anonymization
-
 - Customer information protection
 
 - Audit trail for financial data
@@ -152,13 +145,13 @@ Filter Types- **Regex Patterns**: For complex detection patterns
 
 - Secure key management
 
-2. **Multi-Tenant Isolation**- Complete data isolation between customers
+1. **Multi-Tenant Isolation**- Complete data isolation between customers
 
 - No mixing of customer data
 
 - Separate configurations per customer
 
-3. **Access Control**- Role-based permissions
+1. **Access Control**- Role-based permissions
 
 - API key-based authentication
 
@@ -166,7 +159,6 @@ Filter Types- **Regex Patterns**: For complex detection patterns
 
 ### Security Measures
 **API Security**- Rate Limiting: 100 requests per 15 minutes per IP
-
 - JWT token authentication
 
 - API key authentication
@@ -174,7 +166,6 @@ Filter Types- **Regex Patterns**: For complex detection patterns
 - Input validation and sanitization
 
 **Database Security**- Row-level security for tenant isolation
-
 - Encrypted connections (SSL/TLS)
 
 - Secure password hashing (bcrypt)
@@ -191,7 +182,7 @@ Filter Types- **Regex Patterns**: For complex detection patterns
 
 - Tenant-specific configurations
 
-2. **Scalable Architecture**- Horizontal scaling possible
+1. **Scalable Architecture**- Horizontal scaling possible
 
 - Load balancing supported
 
@@ -199,7 +190,7 @@ Filter Types- **Regex Patterns**: For complex detection patterns
 
 - Caching strategies implemented
 
-3. **Fault Tolerance**- Graceful degradation on errors
+1. **Fault Tolerance**- Graceful degradation on errors
 
 - Automatic recovery
 
@@ -210,95 +201,87 @@ Filter Types- **Regex Patterns**: For complex detection patterns
 ### Database Design
 **Table Structure**-- Tenants (Customers)
 CREATE TABLE tenants (
-    id UUID PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT NOW()
+id UUID PRIMARY KEY,
+name VARCHAR(255) NOT NULL,
+is_active BOOLEAN DEFAULT true,
+created_at TIMESTAMP DEFAULT NOW()
 );
-
 -- Filter Definitions
 CREATE TABLE filter_definitions (
-    id UUID PRIMARY KEY,
-    tenant_id UUID REFERENCES tenants(id),
-    name VARCHAR(255) NOT NULL,
-    category VARCHAR(100) NOT NULL,
-    regex_pattern TEXT,
-    string_match TEXT,
-    priority INTEGER DEFAULT 1,
-    is_active BOOLEAN DEFAULT true
+id UUID PRIMARY KEY,
+tenant_id UUID REFERENCES tenants(id),
+name VARCHAR(255) NOT NULL,
+category VARCHAR(100) NOT NULL,
+regex_pattern TEXT,
+string_match TEXT,
+priority INTEGER DEFAULT 1,
+is_active BOOLEAN DEFAULT true
 );
-
 -- Transformations (Anonymization processes)
 CREATE TABLE transformations (
-    id UUID PRIMARY KEY,
-    tenant_id UUID REFERENCES tenants(id),
-    configuration_id UUID,
-    content_size INTEGER,
-    processing_time_ms INTEGER,
-    status VARCHAR(50),
-    context TEXT,
-    created_at TIMESTAMP DEFAULT NOW(),
-    expires_at TIMESTAMP
+id UUID PRIMARY KEY,
+tenant_id UUID REFERENCES tenants(id),
+configuration_id UUID,
+content_size INTEGER,
+processing_time_ms INTEGER,
+status VARCHAR(50),
+context TEXT,
+created_at TIMESTAMP DEFAULT NOW(),
+expires_at TIMESTAMP
 );
-
 -- Mapping Entries (encrypted original values)
 CREATE TABLE mapping_entries (
-    id UUID PRIMARY KEY,
-    transformation_id UUID REFERENCES transformations(id),
-    placeholder VARCHAR(100) NOT NULL,
-    encrypted_value TEXT NOT NULL,
-    category VARCHAR(100),
-    confidence DECIMAL(3,2)
+id UUID PRIMARY KEY,
+transformation_id UUID REFERENCES transformations(id),
+placeholder VARCHAR(100) NOT NULL,
+encrypted_value TEXT NOT NULL,
+category VARCHAR(100),
+confidence DECIMAL(3,2)
 );
-
 -- Audit Logs (WORM-compliant)
 CREATE TABLE audit_logs (
-    id UUID PRIMARY KEY,
-    tenant_id UUID REFERENCES tenants(id),
-    user_id UUID,
-    event_type VARCHAR(100) NOT NULL,
-    timestamp TIMESTAMP DEFAULT NOW(),
-    metadata JSONB,
-    severity VARCHAR(20) DEFAULT 'INFO'
+id UUID PRIMARY KEY,
+tenant_id UUID REFERENCES tenants(id),
+user_id UUID,
+event_type VARCHAR(100) NOT NULL,
+timestamp TIMESTAMP DEFAULT NOW(),
+metadata JSONB,
+severity VARCHAR(20) DEFAULT 'INFO'
 );
 ### API Design
-**RESTful Endpoints**POST /api/v1/anonymize          # Single anonymization
-POST /api/v1/anonymize/bulk     # Bulk anonymization
-POST /api/v1/deanonymize        # Re-identification
-GET  /api/v1/config/filters     # Manage filters
-GET  /api/v1/audit/trail/:id    # Retrieve audit trail
+**RESTful Endpoints**POST /api/v1/anonymize # Single anonymization
+POST /api/v1/anonymize/bulk # Bulk anonymization
+POST /api/v1/deanonymize # Re-identification
+GET /api/v1/config/filters # Manage filters
+GET /api/v1/audit/trail/:id # Retrieve audit trail
 **Response Format**{
-  "success": true,
-  "data": {
-    "anonymizedContent": "Hello {{Name_1}}",
-    "transformationId": "uuid-here",
-    "mappingsCount": 1,
-    "processingTimeMs": 150
-  }
+"success": true,
+"data": {
+"anonymizedContent": "Hello {{Name_1}}",
+"transformationId": "uuid-here",
+"mappingsCount": 1,
+"processingTimeMs": 150
+}
 }
 ## 🔄 Business Processes &amp; Workflows
 ### 1. **Customer Onboarding**
 Step 1: Tenant Creation- Customer is registered in the system
-
 - Individual configuration is created
 
 - Admin user is set up
 
 Step 2: Configuration- Standard filters are set up
-
 - Customer-specific rules are defined
 
 - Compliance settings are configured
 
 Step 3: Training- Users are trained
-
 - API documentation is provided
 
 - Support contact is established
 
 ### 2. **Daily Usage**
 Anonymization1. **Enter Data**: Text is sent to the system
-
 1. **Automatic Processing**: System detects and anonymizes PII
 
 1. **Receive Result**: Anonymized text is returned
@@ -306,7 +289,6 @@ Anonymization1. **Enter Data**: Text is sent to the system
 1. **Audit Log**: Process is fully logged
 
 De-anonymization1. **Submit Request**: Authorized user submits request
-
 1. **Provide Reason**: Legitimate business purpose must be documented
 
 1. **Approval**: System or admin approves access
@@ -317,13 +299,11 @@ De-anonymization1. **Submit Request**: Authorized user submits request
 
 ### 3. **Compliance Management**
 Regular Audits- **Automatic Reports**: System generates compliance reports
-
 - **Audit Trail Export**: Complete traceability
 
 - **Compliance Score**: Automatic assessment of GDPR compliance
 
 Data Deletion- **Automatic Retention**: Data is deleted after defined time
-
 - **Right to be Forgotten**: Customers can request deletion
 
 - **Traceability**: Deletion is fully documented
@@ -331,7 +311,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 ## 📊 Quality Requirements
 ### Performance Metrics
 **Anonymization**- **Processing Time**: ≤ 300ms for 10KB text
-
 - **Throughput**: ≥ 1000 requests/minute
 
 - **Error Rate**: &lt; 0.1%
@@ -339,18 +318,15 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 - **Availability**: 99.9% uptime
 
 **De-anonymization**- **Processing Time**: ≤ 100ms
-
 - **Accuracy**: 100% correct restoration
 
 - **Security**: No unauthorized access
 
 **Filter Lookup**- **Processing Time**: ≤ 50ms
-
 - **Scalability**: Support for 1000+ filters per tenant
 
 ### Quality Assurance
 **Testing Requirements**- **Unit Tests**: 100% code coverage
-
 - **Integration Tests**: All API endpoints
 
 - **Performance Tests**: Load testing with realistic data
@@ -358,7 +334,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 - **Security Tests**: Penetration testing and vulnerability scans
 
 **Code Quality**- **Linting**: ESLint with Airbnb standards
-
 - **Code Review**: Mandatory for all changes
 
 - **Documentation**: Complete API documentation
@@ -368,7 +343,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 ## 📈 Scalability &amp; Performance
 ### Horizontal Scaling
 **Application Layer**- **Load Balancing**: Automatic load distribution
-
 - **Auto Scaling**: Automatic scaling based on load
 
 - **Containerization**: Docker containers for easy deployment
@@ -376,7 +350,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 - **Microservices**: Modular architecture for independent scaling
 
 **Database Layer**- **Connection Pooling**: 10-100 parallel connections
-
 - **Read Replicas**: Read operations on replicas
 
 - **Partitioning**: Audit logs partitioned by date
@@ -385,7 +358,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 
 ### Performance Optimization
 **Caching Strategies**- **Redis Cache**: Frequently used filters and configurations
-
 - **In-Memory Cache**: Active transformations
 
 - **CDN**: Static assets and documentation
@@ -393,7 +365,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 - **Database Cache**: Cache query results
 
 **Asynchronous Processing**- **Queue System**: Bulk anonymization in background
-
 - **Event-Driven**: Webhook integrations
 
 - **Background Jobs**: Audit log processing
@@ -403,7 +374,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 ## 📊 Monitoring &amp; Audit
 ### Real-Time Monitoring
 **System Metrics**- **CPU/GPU Usage**: Monitor server performance
-
 - **Memory Usage**: RAM and disk space
 
 - **Network Traffic**: Bandwidth usage
@@ -411,7 +381,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 - **Database Performance**: Query times and connection pool
 
 **Application Metrics**- **Response Times**: API performance
-
 - **Error Rates**: 4xx/5xx HTTP status
 
 - **Throughput**: Requests per second
@@ -420,7 +389,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 
 ### Audit &amp; Compliance
 **Audit Trail**- **Complete Logging**: All data access
-
 - **WORM Compliance**: Write Once Read Many
 
 - **Immutability**: Audit logs cannot be modified
@@ -428,7 +396,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 - **Long-term Archiving**: 7 years retention
 
 **Compliance Reporting**- **Automatic Reports**: Daily/weekly/monthly
-
 - **GDPR Compliance**: Automatic assessment
 
 - **Export Functions**: JSON/CSV export
@@ -437,7 +404,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 
 ### Alerting &amp; Notifications
 **Critical Alerts**- **System Down**: Immediate notification
-
 - **Security Breaches**: Unauthorized access
 
 - **Performance Issues**: High response times
@@ -445,7 +411,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 - **Compliance Violations**: Audit trail gaps
 
 **Notification Channels**- **Email**: Detailed reports
-
 - **Slack/Teams**: Real-time alerts
 
 - **SMS**: Critical system failures
@@ -455,7 +420,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 ## 🛠️ Implementation Guidelines
 ### Development Guidelines
 **Code Standards**- **JavaScript/Node.js**: ES2020+ standards
-
 - **TypeScript**: For better type safety
 
 - **RESTful APIs**: OpenAPI/Swagger specification
@@ -463,7 +427,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 - **Database**: PostgreSQL with Sequelize ORM
 
 **Security Guidelines**- **Input Validation**: Validate all inputs
-
 - **SQL Injection Protection**: Parameterized queries
 
 - **XSS Protection**: Content Security Policy
@@ -472,7 +435,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 
 ### Deployment &amp; DevOps
 **CI/CD Pipeline**- **Automated Testing**: All tests before deployment
-
 - **Code Quality**: Linting and code review
 
 - **Security Scanning**: Vulnerability assessment
@@ -480,7 +442,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 - **Automated Deployment**: Blue-green deployment
 
 **Infrastructure as Code**- **Terraform**: Infrastructure definition
-
 - **Docker**: Containerization
 
 - **Kubernetes**: Orchestration
@@ -489,7 +450,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 
 ### Documentation
 **Technical Documentation**- **API Documentation**: OpenAPI/Swagger
-
 - **Architecture Diagrams**: System design
 
 - **Deployment Guide**: Step-by-step guide
@@ -497,7 +457,6 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 - **Troubleshooting**: Common problems and solutions
 
 **User Documentation**- **Getting Started**: First steps
-
 - **Best Practices**: Recommended approaches
 
 - **FAQ**: Frequently asked questions
@@ -512,13 +471,13 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 
 - **Data Deletion Timeliness**: 100%
 
-2. **Efficiency Metrics**- **Anonymization Speed**: ≤ 300ms
+1. **Efficiency Metrics**- **Anonymization Speed**: ≤ 300ms
 
 - **Error Rate**: &lt; 0.1%
 
 - **User Satisfaction**: 4.5/5
 
-3. **Business Metrics**- **Cost Reduction**: 70-80%
+1. **Business Metrics**- **Cost Reduction**: 70-80%
 
 - **Time Savings**: 80-90%
 
@@ -526,19 +485,16 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 
 ### ROI Calculation
 **Investment**- **Software License**: €X per month
-
 - **Setup Costs**: €Y one-time
 
 - **Training Costs**: €Z
 
 **Savings**- **Personnel Costs**: €A per month
-
 - **Compliance Costs**: €B per month
 
 - **Error Costs**: €C per month
 
 **ROI**- **Annual Savings**: €D
-
 - **ROI**: X% after Y months
 
 - **Break-even**: After Z months
@@ -551,13 +507,13 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 
 - Automatic categorization
 
-2. **Extended Compliance**- HIPAA compliance for health data
+1. **Extended Compliance**- HIPAA compliance for health data
 
 - PCI-DSS for credit card data
 
 - SOX compliance for financial data
 
-3. **Integration &amp; APIs**- RESTful APIs for all functions
+1. **Integration &amp; APIs**- RESTful APIs for all functions
 
 - SDKs for various programming languages
 
@@ -570,13 +526,13 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 
 - Predictive analytics for compliance risks
 
-2. **Enhanced Security**- Zero-knowledge architecture
+1. **Enhanced Security**- Zero-knowledge architecture
 
 - Homomorphic encryption
 
 - Blockchain-based audit trails
 
-3. **Global Expansion**- Support for additional data protection laws
+1. **Global Expansion**- Support for additional data protection laws
 
 - Multi-language support
 
@@ -589,19 +545,19 @@ Data Deletion- **Automatic Retention**: Data is deleted after defined time
 
 - Predictive anonymization
 
-2. **Dynamic Detection Features**- **Local LLM Integration**: On-premise language model for context-aware detection
+1. **Dynamic Detection Features**- **Local LLM Integration**: On-premise language model for context-aware detection
 
 - **String List Injection**: Dynamic filtering with request-specific string lists
 
 - **Real-Time Pattern Learning**: Continuous improvement of detection algorithms
 
-3. **Ecosystem Integration**- Integration into existing business software
+1. **Ecosystem Integration**- Integration into existing business software
 
 - Marketplace for anonymization filters
 
 - Community-based filter development
 
-4. **Global Standard**- PrivacyLayer as standard for data anonymization
+1. **Global Standard**- PrivacyLayer as standard for data anonymization
 
 - Industry leadership in compliance technology
 
