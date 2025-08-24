@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "id": "model-tesrt",
+    "type": "data-models",
+    "projectId": "1820d5b2-7c2e-4b47-8cf1-9303f39aa2bd",
+    "createdBy": "439ca6e3-fdfc-4590-88b7-26761a914af2",
+    "createdAt": "2025-08-24T22:00:23.961Z",
+    "updatedAt": "2025-08-24T22:00:23.961Z",
+    "version": "1.0.0",
+    "status": "draft",
+    "objects": [],
+    "relationships": []
+  },
+  "content": {
+    "name": "Tesrt",
+    "description": "",
+    "version": "1.0.0",
+    "status": "draft",
+    "objects": [],
+    "relationships": []
+  }
+}
