@@ -4,19 +4,58 @@
     "type": "data-models",
     "projectId": "1820d5b2-7c2e-4b47-8cf1-9303f39aa2bd",
     "createdBy": "439ca6e3-fdfc-4590-88b7-26761a914af2",
-    "createdAt": "2025-08-24T22:00:23.961Z",
-    "updatedAt": "2025-08-24T22:00:23.961Z",
+    "createdAt": "2025-08-25T09:18:12.598Z",
+    "updatedAt": "2025-08-25T09:18:12.598Z",
     "version": "1.0.0",
     "status": "draft",
-    "objects": [],
+    "objects": [
+      {
+        "id": "object-1756113492584",
+        "name": "Test",
+        "display_name": "Test",
+        "api_name": "Test__c",
+        "description": "",
+        "object_type": "custom",
+        "is_active": true,
+        "fields": [],
+        "relationships": []
+      }
+    ],
     "relationships": []
   },
   "content": {
+    "id": "model-tesrt",
     "name": "Tesrt",
     "description": "",
     "version": "1.0.0",
     "status": "draft",
-    "objects": [],
-    "relationships": []
+    "created_at": "2025-08-24T22:00:23.961Z",
+    "updated_at": "2025-08-24T22:00:23.961Z",
+    "created_by": "439ca6e3-fdfc-4590-88b7-26761a914af2",
+    "objects": [
+      {
+        "id": "object-1756113492584",
+        "name": "Test",
+        "display_name": "Test",
+        "api_name": "Test__c",
+        "description": "",
+        "object_type": "custom",
+        "is_active": true,
+        "fields": [],
+        "relationships": []
+      }
+    ],
+    "metadata": {
+      "id": "model-tesrt",
+      "type": "data-models",
+      "projectId": "1820d5b2-7c2e-4b47-8cf1-9303f39aa2bd",
+      "createdBy": "439ca6e3-fdfc-4590-88b7-26761a914af2",
+      "createdAt": "2025-08-24T22:00:23.961Z",
+      "updatedAt": "2025-08-24T22:00:23.961Z",
+      "version": "1.0.0",
+      "status": "draft",
+      "objects": [],
+      "relationships": []
+    }
   }
 }
