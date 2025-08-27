@@ -1,5 +1,5 @@
 # 🛡️ KI Guardrails – Technisch-funktionaler Rahmen für Agenten und Module
-V3
+V4
 Wir entwickeln eine modulare, AI-gestützte Plattform zur Automatisierung von typischen Tätigkeiten im Rahmen von Salesforce-Projekten. Die Project Assistant Suite begleitet den gesamten Projektlebenszyklus – von PreSales über Solution Design bis zu Rollout und Hypercare – und nutzt spezialisierte AI-Agenten zur Extraktion, Strukturierung und Generierung relevanter Artefakte wie Stories, Datenmodelle, Testfälle oder Schulungsunterlagen. Ziel ist es, diese Plattform zunächst intern zur Effizienzsteigerung einzusetzen und später als produktisiertes System im Markt zu etablieren.
 Dieses Dokument beschreibt den verbindlichen Rahmen ("Guardrails") für alle KI-gestützten Komponenten innerhalb der Project Assistant Suite. Es definiert, was erlaubt ist, welche Technologien und Methoden verwendet werden dürfen und welche architektonischen sowie sicherheitsrelevanten Leitplanken einzuhalten sind.
 ## 1. 🔧 Technologischer Rahmen
